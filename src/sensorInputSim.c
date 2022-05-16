@@ -41,6 +41,27 @@ void sensor_sim(void)
 
 /* Implement code here begin */
 
-    
+/*
+    This function calculates that level of liquid present in tank when the interrupt status is triggered.
+    It will exit from the thread once the level of liquid present is found to be less than 15%.
+    Parameters:
+    uint8_t tank_level : indicates the tank depth (Max 10 m).
+*/
+
+void level_sensing(void)
+{
+ uint8_t tank_level = 0x0000;
+
+uint16_t MAX_VOLTAGE_SAMPLE = 0xFFFF; /* It is 15% of level */
+
+    while (intr_status)
+    {
+        //tank_level indicates the depth of the tank, filled with liquid(MAX filled = 10m)
+        tank_level = (adc0_register * MAX_TANK_DEPTH)/(MAX_VOLTAGE_SAMPLE);
+
+        printf("Current tank level of liquid present is:%u m",tank_level);
+
+    }    
+}   
     
 /* Implement code here end */

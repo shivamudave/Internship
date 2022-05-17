@@ -50,9 +50,7 @@ void sensor_sim(void)
 
 void level_sensing(void)
 {
- uint8_t tank_level = 0x0000;
 
-uint16_t MAX_VOLTAGE_SAMPLE = 0xFFFF; /* It is 15% of level */
 
     while (intr_status)
     {
@@ -60,6 +58,16 @@ uint16_t MAX_VOLTAGE_SAMPLE = 0xFFFF; /* It is 15% of level */
         tank_level = (adc0_register * MAX_TANK_DEPTH)/(MAX_VOLTAGE_SAMPLE);
 
         printf("Current tank level of liquid present is:%u m",tank_level);
+
+        EXIT_LEVEL_SAMPLE = (MAX_TANK_DEPTH*15)/100;
+
+                   if(tank_level <= EXIT_LEVEL_SAMPLE)
+                   {
+                	   is_tank_level_below_par = true;
+
+                      printf("Tank liquid less than 15 percent\n");
+                      pthread_exit(NULL);
+                   }
 
     }    
 }   

@@ -16,14 +16,12 @@ int main(void)
 
     /* Implement code here start */
 
-    EXIT_LEVEL_SAMPLE = (MAX_TANK_DEPTH*15)/100;
 
-           if(tank_level <= EXIT_LEVEL_SAMPLE)
-           {
+    if(is_tank_level_below_par == true)
+    {
+        exit(0);
+    }
 
-              printf("Tank liquid less than 15 percent\n");
-              pthread_exit(NULL);
-           }
     /* Implement code here end */
 
     /* DO NOT MODIFY HERE */
